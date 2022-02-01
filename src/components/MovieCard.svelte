@@ -4,10 +4,12 @@
 </script>
 
 <div class="movie_card">
-    <img 
-        src={'https://image.tmdb.org/t/p/w500' + movie.poster_path} 
-        alt={movie.original_title}
-    />
+    <a href={'/movie/' + movie.id}>
+        <img 
+            src={'https://image.tmdb.org/t/p/w500' + movie.poster_path} 
+            alt={movie.original_title}
+        />
+    </a>
     <div class="movie_description">
         <h2>{movie.original_title} / {movie.title}</h2>
         <p>{movie.release_date}</p>
