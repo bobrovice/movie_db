@@ -1,7 +1,37 @@
-<form class="search">
-    <label for="search_movie">Search Movie</label>
-    <input name="search_movie" type="text" />
-    <button>Search</button>
+<script>
+    import {goto} from '$app/navigation'
+
+    let inputValue = ''
+    let active = false
+
+    function cancelInactive() {
+        if (inputValue) {
+            active = true
+        } else {
+            active = false
+        }
+    }
+
+    function submitSearch() {
+        goto('/search/' + inputValue)
+    }
+</script>
+
+<form on:submit|preventDefault = {submitSearch} class="search">
+    {#if !active}
+        <label for="search_movie">Search Movie</label>
+    {/if}
+    <input 
+        on:blur = {cancelInactive} 
+        on:focus = {() => (active = true)} 
+        bind:value = {inputValue} 
+        name = "search_movie" 
+        type = "text"
+        class = {active ? 'selected' : ''}
+    />
+    {#if inputValue}
+        <button>Search</button>
+    {/if}    
 </form>
 
 <style>
@@ -52,6 +82,10 @@
         pointer-events: none;
         color: white;
         padding: 0rem 1rem;
+    }
+
+    input.selected {
+        background: rgb(50, 50, 50);
     }
 
 </style>
